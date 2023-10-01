@@ -41,6 +41,7 @@ variable "kvs_name_secret" {
 variable "kvs_vm_secret" {
   type = string
   description = "VM secret"
+  sensitive = true
 }
 
 variable "common_tags" {

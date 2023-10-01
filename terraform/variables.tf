@@ -18,11 +18,6 @@ variable "kvs_name_username" {
   description = "Key vault secret name for VM username"
 }
 
-variable "kvs_vm_username" {
-  type        = string
-  description = "VM username"
-}
-
 variable "kvs_name_secret" {
   type        = string
   description = "Key vault secret name for VM secret"
@@ -91,6 +86,18 @@ variable "vm_nic_name" {
 variable "vm_linux_name" {
   type        = string
   description = "Virtual machine name"
+}
+
+variable "vm_username" {
+  type        = string
+  sensitive   = true
+  description = "Virtual machine username"
+}
+
+variable "vm_password" {
+  type        = string
+  sensitive   = true
+  description = "Virtual machine password"
 }
 
 variable "company_name" {

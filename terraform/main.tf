@@ -4,22 +4,6 @@ resource "random_string" "random_string_name" {
   upper   = false
 }
 
-resource "random_string" "random_string_special_upper" {
-  length  = 24
-  special = true
-  upper   = true
-}
-
-data "github_actions_public_key" "github_actions" {
-  repository = "example_repository"
-}
-
-resource "github_actions_secret" "example_secret" {
-  repository       = "example_repository"
-  secret_name      = "example_secret_name"
-  plaintext_value  = random_string.random_string_special_upper.result
-}
-
 module "virtual_network" {
   source           = "./virtual_network"
   vnet_rg_name     = var.vnet_rg_name
@@ -38,8 +22,8 @@ module "virtualmachine" {
   vm_pub_ip_name = var.vm_pub_ip_name
   vm_nic_name    = var.vm_nic_name
   vm_linux_name  = var.vm_linux_name
-  vm_username    = module.key_vault.username_output
-  vm_password    = module.key_vault.secret_output
+  vm_username    = var.vm_username
+  vm_password    = var.vm_password
   vm_subnet_id   = module.virtual_network.subnet_vm_id_output
   common_tags    = local.common_tags
 }
@@ -61,8 +45,8 @@ module "key_vault" {
   kvs_name_accesskey = var.kvs_name_accesskey
   kvs_sa_accesskey   = module.storage_account.sa_primary_accesskey_output
   kvs_name_username  = var.kvs_name_username
-  kvs_vm_username    = var.kvs_vm_username
+  kvs_vm_username    = module.virtualmachine.vm_username_output
   kvs_name_secret    = var.kvs_name_secret
-  kvs_vm_secret      = random_string.random_string_special_upper.result
+  kvs_vm_secret      = module.virtualmachine.vm_password_output
   common_tags        = local.common_tags
 }

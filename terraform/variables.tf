@@ -110,5 +110,20 @@ variable "project_name" {
   description = "Project name"
 }
 
+variable "vm_rg_location" {
+  type = string
+  description = "Virtual machine resource group location"
+}
+
+variable "sa_rg_location" {
+  type = string
+  description = "Storage account resource group location"
+}
+
+variable "kv_rg_location" {
+  type = string
+  description = "Key vault resource group location"
+}
+
 
 

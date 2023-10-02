@@ -31,16 +31,28 @@ variable "vm_subnet_id" {
 variable "vm_username" {
   type = string
   description = "Virtual machine username"
+  sensitive = true
 }
   
 variable "vm_password" {
   type = string
   description = "Virtual machine password"
+  sensitive = true
 }
 
 variable "common_tags" {
   type = map(string)
   description = "Common tags for all resources"
+}
+
+variable "vm_size" {
+  type = map(string)
+  default = {
+    "small"  = "Standard_B1s"
+    "medium" = "Standard_B2s"
+    "large"  = "Standard_B4ms"
+  }
+  description = "Virtual machine sizes (small, medium, large)"
 }
 
 

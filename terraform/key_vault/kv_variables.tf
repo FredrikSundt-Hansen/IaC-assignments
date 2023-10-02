@@ -20,6 +20,7 @@ variable "kvs_name_accesskey" {
 
 variable "kvs_sa_accesskey" {
   type = string
+  sensitive = true
   description = "Storage account access key"
 }
 
@@ -30,6 +31,7 @@ variable "kvs_name_username" {
 
 variable "kvs_vm_username" {
   type = string
+  sensitive = true
   description = "VM username"
 }
 
@@ -40,8 +42,8 @@ variable "kvs_name_secret" {
   
 variable "kvs_vm_secret" {
   type = string
-  description = "VM secret"
   sensitive = true
+  description = "VM secret"
 }
 
 variable "common_tags" {

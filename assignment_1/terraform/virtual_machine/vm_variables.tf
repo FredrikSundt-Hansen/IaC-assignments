@@ -45,7 +45,7 @@ variable "common_tags" {
   description = "Common tags for all resources"
 }
 
-variable "vm_size" {
+variable "vm_sizes" {
   type = map(string)
   default = {
     "small"  = "Standard_B1s"
@@ -53,6 +53,12 @@ variable "vm_size" {
     "large"  = "Standard_B4ms"
   }
   description = "Virtual machine sizes (small, medium, large)"
+}
+
+variable "vm_size" {
+  type = string
+  default = "small"
+  description = "Value of the virtual machine size (small, medium, large)"
 }
 
 

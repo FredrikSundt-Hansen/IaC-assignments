@@ -111,19 +111,24 @@ variable "project_name" {
 }
 
 variable "vm_rg_location" {
-  type = string
+  type        = string
   description = "Virtual machine resource group location"
 }
 
 variable "sa_rg_location" {
-  type = string
+  type        = string
   description = "Storage account resource group location"
 }
 
 variable "kv_rg_location" {
-  type = string
+  type        = string
   description = "Key vault resource group location"
 }
 
+variable "vm_size" {
+  type = string
+  default = "small"
+  description = "value of the virtual machine size (small, medium, large)"
+}
 
 

@@ -23,7 +23,7 @@ module "virtual_machine" {
   vm_nic_name    = var.vm_nic_name
   vm_linux_name  = var.vm_linux_name
   vm_username    = var.vm_username
-  vm_password    = var.vm_password
+  vm_password    = var.vm_password  
   vm_subnet_id   = module.virtual_network.subnet_vm_id_output
   common_tags    = local.common_tags
 }

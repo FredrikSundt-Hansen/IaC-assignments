@@ -10,18 +10,32 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = azurerm_resource_group.vnet_rg.name
   
   security_rule {
-  name                        = "Allow-Public-IP"
+    name                        = "Allow-Public-IP"
+    priority                    = 100
+    direction                   = "Inbound"
+    access                      = "Allow"
+    protocol                    = "Tcp"
+    source_port_range           = "*"
+    destination_port_range      = "*"
+    source_address_prefix       = var.source_address
+    destination_address_prefix  = "*"
+  }
+  
+  tags = var.common_tags
+}
+
+resource "azurerm_network_security_rule" "ssh_inbound_myIP" {
+  name                        = "ssh_inboundMyIP"
   priority                    = 100
-  direction                   = "Inbound"
+  direction                   = "Outbound"
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "*"
-  source_address_prefix       = var.source_address
+  source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  }
-  
-  tags = var.common_tags
+  resource_group_name         = azurerm_resource_group.vnet_rg.name
+  network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -30,7 +44,6 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = azurerm_resource_group.vnet_rg.name
   address_space       = ["10.0.0.0/16"]
   dns_servers         = ["10.0.0.4", "10.0.0.5"]
-
   tags = var.common_tags
 }
 

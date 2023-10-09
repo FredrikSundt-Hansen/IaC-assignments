@@ -1,1 +1,0 @@
-# IaC-mandatory-assigment-1

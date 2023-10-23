@@ -27,9 +27,7 @@ env:
       source_content: <h1>Web page created with Terraform </h1>
       # Tags
       company_name: week-39_company
-      billing_code: 1234567890
-
-      all_vars: -var "rg_website_name=${{ env.rg_website_name }}" -var "rg_website_location=${{ env.rg_website_location }}" -var "sa_website_name=${{ env.sa_website_name }}" -var "source_content=${{ env.source_content }}" -var "company_name=${{ env.company_name }}" -var "billing_code=${{ env.billing_code }}"
+      billing_code: 123456789
 
 jobs:
   terraform:
@@ -49,7 +47,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan ${{ env.all_vars }}
+        run: terraform plan -var "rg_website_name=${{ env.rg_website_name }}" -var "rg_website_location=${{ env.rg_website_location }}" -var "sa_website_name=${{ env.sa_website_name }}" -var "source_content=${{ env.source_content }}" -var "company_name=${{ env.company_name }}" -var "billing_code=${{ env.billing_code }}"
 
       - name: Check last commit message
         id: commit

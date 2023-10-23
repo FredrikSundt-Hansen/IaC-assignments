@@ -49,9 +49,7 @@ jobs:
         if: github.event.inputs.action_type == 'apply'
         id: apply
         working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          terraform apply -auto-approve ${{ env.ALL_VARS }}
-          echo "WEB_ENDPOINT=$(terraform output -raw primary_web_endpoint)" 
+        run: terraform apply -auto-approve ${{ env.ALL_VARS }}
         
       - name: Terraform destroy
         if: github.event.inputs.action_type == 'destroy'

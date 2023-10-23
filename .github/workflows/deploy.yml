@@ -19,6 +19,18 @@ env:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       WORKING_DIR: ./weekly_assignments/week_40/website
 
+      # Resource group
+      rg_website_name: rg-week_39-static-website
+      rg_website_location: westeurope"
+      # Storage account
+      sa_website_name: saweb
+      source_content: <h1>Web page created with Terraform </h1>
+      # Tags
+      company_name: week-39_company
+      billing_code: 1234567890
+
+      all_vars: -var "rg_website_name=${{ env.rg_website_name }}" -var "rg_website_location=${{ env.rg_website_location }}" -var "sa_website_name=${{ env.sa_website_name }}" -var "source_content=${{ env.source_content }}" -var "company_name=${{ env.company_name }}" -var "billing_code=${{ env.billing_code }}"
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -37,7 +49,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan
+        run: terraform plan ${{ env.all_vars }}
 
       - name: Check last commit message
         id: commit

@@ -22,15 +22,15 @@ resource "azurerm_key_vault" "kv" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "Get","List","Create", "Delete", 
+      "Get","List","Create", "Delete", "Purge", 
     ]
 
     secret_permissions = [
-      "Get","Set","List", "Delete",
+      "Get","Set","List", "Delete", "Purge",
     ]
 
     storage_permissions = [
-      "Get","Set","List", "Delete",
+      "Get","Set","List", "Delete", "Purge",
     ]
   }
 

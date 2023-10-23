@@ -51,3 +51,5 @@ module "key_vault" {
   sa_name                 = module.storage_account.sa_name_output
   common_tags             = local.common_tags
 }
+
+#Deploy

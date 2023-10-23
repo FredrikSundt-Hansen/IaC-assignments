@@ -47,7 +47,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan -var 'rg_website_name=${{ env.rg_website_name }}' -var 'rg_website_location=${{ env.rg_website_location }}' -var 'sa_website_name=${{ env.sa_website_name }}' -var 'source_content=${{ env.source_content }}' -var 'company_name=${{ env.company_name }}' -var 'billing_code=${{ env.billing_code }}'
+        run: terraform plan 
 
       - name: Check last commit message
         id: commit

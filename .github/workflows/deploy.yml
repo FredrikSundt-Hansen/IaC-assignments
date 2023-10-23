@@ -17,7 +17,7 @@ env:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./weekly_assigmnents/week_40/website
+      WORKING_DIR: ../weekly_assigmnents/week_40/website
 
 jobs:
   terraform:
@@ -28,6 +28,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: PWD
+        run: echo "pwd"
       
       - name: Terraform init
         id: init
@@ -36,8 +39,8 @@ jobs:
 
       - name: Terraform plan
         id: plan
-        run: terraform plan
         working-directory: ${{ env.WORKING_DIR }}
+        run: terraform plan
 
       - name: Check last commit message
         id: commit

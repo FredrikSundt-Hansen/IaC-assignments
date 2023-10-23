@@ -106,22 +106,25 @@ jobs:
         run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
+        id: terraformAction
         working-directory: ${{ env.WORKING_DIR }}
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
-            echo "Destroying resources"
+            echo "{action}={destroy}" >> $GITHUB_OUTPUT
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
-            echo "Applying resources"
+            echo "{action}={apply}" >> $GITHUB_OUTPUT
             terraform apply -auto-approve ${{ env.ALL_VARS }}
           fi
 
       - name: Test prod
         working-directory: ${{ env.WORKING_DIR }}
+        if: steps.terraformAction.outputs.action == 'apply'
         run: |
           curl $(terraform output -raw primary_web_endpoint)
       
       - name: Get Web Endpoint
+        if: steps.terraformAction.outputs.action == 'apply'
         id: get_web_endpoint
         run: echo "WEB_ENDPOINT=$(terraform output -raw primary_web_endpoint)" 
         working-directory: ${{ env.WORKING_DIR }}

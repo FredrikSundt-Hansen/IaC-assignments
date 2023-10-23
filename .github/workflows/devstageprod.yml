@@ -12,6 +12,8 @@ env:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       WORKING_DIR: ./weekly_assignments/week_40/website
 
+      ALL_VARS: -var 'rg_website_name=rg-week_39-static-website' -var 'rg_website_location=westeurope' -var 'sa_website_name=saweb' -var 'source_content=<h1>Web page created with Terraform </h1>' -var 'company_name=week-39_company' -var 'billing_code=123456789'
+
 jobs:
   dev_stage:
     runs-on: ubuntu-latest
@@ -35,10 +37,10 @@ jobs:
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
             echo "Destroying resources"
-            terraform destroy -auto-approve
+            terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
             echo "Applying resources"
-            terraform apply -auto-approve
+            terraform apply -auto-approve ${{ env.ALL_VARS }}
           fi
       
       - name: Test dev
@@ -70,10 +72,10 @@ jobs:
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
             echo "Destroying resources"
-            terraform destroy -auto-approve
+            terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
             echo "Applying resources"
-            terraform apply -auto-approve
+            terraform apply -auto-approve ${{ env.ALL_VARS }}
           fi
       
       - name: Test dev
@@ -108,10 +110,10 @@ jobs:
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
             echo "Destroying resources"
-            terraform destroy -auto-approve
+            terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
             echo "Applying resources"
-            terraform apply -auto-approve
+            terraform apply -auto-approve ${{ env.ALL_VARS }}
           fi
 
       - name: Test prod

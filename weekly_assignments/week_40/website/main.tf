@@ -33,4 +33,5 @@ resource "azurerm_storage_blob" "index_html" {
   source_content         = "${var.source_content}${local.web_suffix}"
 }
 
+
 #Deploy

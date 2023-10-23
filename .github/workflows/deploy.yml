@@ -57,7 +57,6 @@ jobs:
 
       - name: Conditionally run Terraform action
         working-directory: ${{ env.WORKING_DIR }}
-        if: github.event.inputs.action_type != 'apply' && github.event.inputs.action_type != 'destroy'
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
             echo "Destroying resources"

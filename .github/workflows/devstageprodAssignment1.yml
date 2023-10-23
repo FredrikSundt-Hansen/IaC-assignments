@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'mandatory_assignments/assignment_1/fredsu-oppg1/**'
+  workflow_dispatch:
 
 env: 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}

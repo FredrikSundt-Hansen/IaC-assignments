@@ -11,7 +11,7 @@ env:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./mandatory_assigments/assignment_1/fredsu-oppg1
+      WORKING_DIR: ./mandatory_assignments/assignment_1/fredsu-oppg1
       ALL_VARS: 
         -var 'vnet_rg_name=vnet-rg-OperraTerra-westeu' 
         -var 'vnet_rg_location=westeurope' 

@@ -10,6 +10,13 @@ terraform {
       version = "3.5.1"
     }
   }
+
+  backend "azurerm" {
+    resource_group_name  = "fredsu-rg-backend"
+    storage_account_name = "sabetfsdfzp45oee3"
+    container_name       = "tfstate"
+    key                  = "week-40.terraform.tfstate"
+  }
 }
 
 provider "azurerm" {

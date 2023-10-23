@@ -2,8 +2,6 @@ name: Dev Stage Prod
 
 on:
   push:
-    branches:
-      - main
     paths:
       - 'weekly_assigmnents/week_40/website/**'
 
@@ -12,7 +10,7 @@ env:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./weekly_assigmnents/week_40/website
+      WORKING_DIR: ./weekly_assignments/week_40/website
 
 jobs:
   dev_stage:

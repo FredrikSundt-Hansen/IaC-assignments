@@ -41,9 +41,13 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform plan ${{ env.ALL_VARS }}
 
-      - name: Check last commit message
-        id: commit
-        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
+      - name: Terraform Format
+        run: terraform fmt -check
+        working-directory: ${{ env.WORKING_DIR }}
+        
+      - name: Terraform Validate
+        run: terraform init -backend=false && terraform validate
+        working-directory: ${{ env.WORKING_DIR }}
 
       - name: Terraform apply
         if: github.event.inputs.action_type == 'apply'

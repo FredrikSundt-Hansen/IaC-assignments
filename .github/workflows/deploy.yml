@@ -19,6 +19,16 @@ env:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       WORKING_DIR: ./weekly_assignments/week_40/website
 
+      # Resource group
+      rg_website_name: rg-week_39-static-website
+      rg_website_location: westeurope
+      # Storage account
+      sa_website_name: saweb
+      source_content: <h1>Web page created with Terraform </h1>
+      # Tags
+      company_name: week-39_company
+      billing_code: 123456789
+
       all_vars: -var 'rg_website_name=rg-week_39-static-website' -var 'rg_website_location=westeurope' -var 'sa_website_name=saweb' -var 'source_content=<h1>Web page created with Terraform </h1>' -var 'company_name=week-39_company' -var 'billing_code=123456789'
 
 jobs:
@@ -54,7 +64,7 @@ jobs:
             terraform destroy -auto-approve 
           else
             echo "Applying resources"
-            terraform apply -auto-approve ${{ env.all_vars }}
+            terraform apply ${{ env.all_vars }} -auto-approve 
           fi
 
       - name: Terraform apply

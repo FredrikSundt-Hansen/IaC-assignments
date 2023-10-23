@@ -47,7 +47,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan -var 'rg_website_name=${{ env.rg_website_name }}' -var 'rg_website_location=${{ env.rg_website_location }}' -var 'sa_website_name=${{ env.sa_website_name }}' -var 'source_content=${{ env.source_content }}' -var 'company_name=${{ env.company_name }}' -var 'billing_code=${{ env.billing_code }}'
+        run: terraform plan -var 'rg_website_name=${{ env.rg_website_name }}' -var 'rg_website_location=${{ env.rg_website_location }}' -var 'sa_website_name=${{ env.sa_website_name }}' -var 'source_content=${{ env.source_content }}' -var 'company_name=${{ env.company_name }}' -var 'billing_code=${{ env.billing_code }}' -out=main.tfplan
 
       - name: Check last commit message
         id: commit
@@ -55,13 +55,14 @@ jobs:
 
       - name: Conditionally run Terraform action
         working-directory: ${{ env.WORKING_DIR }}
+        if: github.event.inputs.action_type != 'apply' && github.event.inputs.action_type != 'destroy'
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
             echo "Destroying resources"
-            terraform destroy -auto-approve
+            terraform destroy "main.tfplan" -auto-approve
           else
             echo "Applying resources"
-            terraform apply -auto-approve
+            terraform apply "main.tfplan" -auto-approve
           fi
 
       - name: Terraform apply

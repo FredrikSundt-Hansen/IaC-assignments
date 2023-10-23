@@ -26,9 +26,20 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform workspace select dev || terraform workspace new dev
 
-      - name: Terraform apply dev
+      - name: Check last commit message
+        id: commit
+        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
+
+      - name: Conditionally run Terraform action
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform apply -auto-approve
+        run: |
+          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
+            echo "Destroying resources"
+            terraform destroy -auto-approve
+          else
+            echo "Applying resources"
+            terraform apply -auto-approve
+          fi
       
       - name: Test dev
         working-directory: ${{ env.WORKING_DIR }}
@@ -50,9 +61,20 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform workspace select stage || terraform workspace new stage
 
-      - name: Terraform apply stage
+      - name: Check last commit message
+        id: commit
+        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
+
+      - name: Conditionally run Terraform action
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform apply -auto-approve
+        run: |
+          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
+            echo "Destroying resources"
+            terraform destroy -auto-approve
+          else
+            echo "Applying resources"
+            terraform apply -auto-approve
+          fi
       
       - name: Test dev
         working-directory: ${{ env.WORKING_DIR }}
@@ -77,9 +99,20 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform workspace select prod || terraform workspace new prod
       
-      - name: Terraform apply prod
+      - name: Check last commit message
+        id: commit
+        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
+
+      - name: Conditionally run Terraform action
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform apply -auto-approve
+        run: |
+          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
+            echo "Destroying resources"
+            terraform destroy -auto-approve
+          else
+            echo "Applying resources"
+            terraform apply -auto-approve
+          fi
 
       - name: Test prod
         working-directory: ${{ env.WORKING_DIR }}

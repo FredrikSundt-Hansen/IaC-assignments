@@ -3,7 +3,7 @@ name: Dev Stage Prod
 on:
   push:
     paths:
-      - 'weekly_assigmnents/week_40/website/**'
+      - 'weekly_assignments/week_40/website/**'
 
 env: 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}

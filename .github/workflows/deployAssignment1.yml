@@ -18,7 +18,33 @@ env:
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       WORKING_DIR: ./mandatory_assignments/assignment_1/fredsu-oppg1
-      ALL_VARS: -var 'vnet_rg_name=vnet-rg-OperraTerra-westeu' -var 'vnet_rg_location=westeurope' -var 'nsg_name=nsg-OperaTerra' -var 'vnet_name=vnet-OperaTerra' -var 'subent_vm_name=subnet-vm-OperaTerra' -var 'source_address=88.95.188.113' -var 'sa_rg_name=sa-rg-OperraTerra-westeu' -var 'sa_rg_location=westeurope' -var 'sa_name=saoperraterra' -var 'sa_container_name=scoperraterra' -var 'vm_rg_name=vm-rg-OperraTerra-westeu' -var 'vm_rg_location=westeurope' -var 'vm_pub_ip_name=vm-pub-ip-OperaTerra' -var 'vm_size=small' -var 'vm_nic_name=vm-nic-OperaTerra' -var 'vm_linux_name=vm-linux-OperaTerra' -var 'vm_username=OperraTerra' -var 'kv_rg_name=kv-rg-OperraTerra-westeu' -var 'kv_rg_location=westeurope' -var 'kv_name=kv-OperaTerra' -var 'kvs_sa_accesskey_name=kvs-OperaTerra-accesskey' -var 'kvs_vm_credentials_name=kvs-OperaTerra-login' -var 'sku_name=premium' -var 'company_name=OperraTerraAS' -var 'project_name=mandatory-assignment-1' -var 'vm_password=Password123!'
+      ALL_VARS: 
+        -var 'vnet_rg_name=vnet-rg-OperraTerra-westeu' 
+        -var 'vnet_rg_location=westeurope' 
+        -var 'nsg_name=nsg-OperaTerra' 
+        -var 'vnet_name=vnet-OperaTerra' 
+        -var 'subent_vm_name=subnet-vm-OperaTerra' 
+        -var 'source_address=88.95.188.113' 
+        -var 'sa_rg_name=sa-rg-OperraTerra-westeu' 
+        -var 'sa_rg_location=westeurope' 
+        -var 'sa_name=saoperraterra' 
+        -var 'sa_container_name=scoperraterra' 
+        -var 'vm_rg_name=vm-rg-OperraTerra-westeu' 
+        -var 'vm_rg_location=westeurope' 
+        -var 'vm_pub_ip_name=vm-pub-ip-OperaTerra' 
+        -var 'vm_size=small' 
+        -var 'vm_nic_name=vm-nic-OperaTerra' 
+        -var 'vm_linux_name=vm-linux-OperaTerra' 
+        -var 'vm_username=OperraTerra' 
+        -var 'kv_rg_name=kv-rg-OperraTerra-westeu' 
+        -var 'kv_rg_location=westeurope' 
+        -var 'kv_name=kv-OperaTerra' 
+        -var 'kvs_sa_accesskey_name=kvs-OperaTerra-accesskey' 
+        -var 'kvs_vm_credentials_name=kvs-OperaTerra-login' 
+        -var 'sku_name=premium' 
+        -var 'company_name=OperraTerraAS' 
+        -var 'project_name=mandatory-assignment-1' 
+        -var 'vm_password=Password123!'
 
 jobs:
   terraform:

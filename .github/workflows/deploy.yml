@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy/Destroy Azure Resources
 
 on:
   workflow_dispatch:

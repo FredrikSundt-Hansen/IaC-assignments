@@ -34,4 +34,4 @@ resource "azurerm_storage_blob" "index_html" {
 }
 
 
-#Deploy
+#Destroy

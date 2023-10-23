@@ -38,13 +38,13 @@ jobs:
 
       - name: Check last commit message
         id: commit
-        run: echo "::set-output name=message::$(git log -1 --format=%B -n 1)"
+        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
         id: terraformAction
         working-directory: ${{ env.WORKING_DIR }}
         run: |
-          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
+          if [[ "${{ steps.commit.outputs.commit_message }}" == *"destroy"* ]]; then
             echo "{action}={destroy}" >> $GITHUB_OUTPUT
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
@@ -77,13 +77,13 @@ jobs:
 
       - name: Check last commit message
         id: commit
-        run: echo "::set-output name=message::$(git log -1 --format=%B -n 1)"
+        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
         id: terraformAction
         working-directory: ${{ env.WORKING_DIR }}
         run: |
-          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
+          if [[ "${{ steps.commit.outputs.commit_message }}" == *"destroy"* ]]; then
             echo "{action}={destroy}" >> $GITHUB_OUTPUT
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
@@ -118,13 +118,13 @@ jobs:
       
       - name: Check last commit message
         id: commit
-        run: echo "::set-output name=message::$(git log -1 --format=%B -n 1)"
+        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
         id: terraformAction
         working-directory: ${{ env.WORKING_DIR }}
         run: |
-          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
+          if [[ "${{ steps.commit.outputs.commit_message }}" == *"destroy"* ]]; then
             echo "{action}={destroy}" >> $GITHUB_OUTPUT
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else

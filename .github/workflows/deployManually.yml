@@ -55,16 +55,11 @@ jobs:
         id: commit
         run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
 
-      - name: Conditionally run Terraform action
+      - name: Terraform apply
+        if: github.event.inputs.action_type == 'apply'
+        id: apply
         working-directory: ${{ env.WORKING_DIR }}
-        run: |
-          if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
-            echo "Destroying resources"
-            terraform destroy -auto-approve 
-          else
-            echo "Applying resources"
-            terraform apply ${{ env.all_vars }} -auto-approve
-          fi
+        run: terraform apply -auto-approve ${{ env.all_vars }}
         
       - name: Terraform destroy
         if: github.event.inputs.action_type == 'destroy'

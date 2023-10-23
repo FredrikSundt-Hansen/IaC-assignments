@@ -52,5 +52,4 @@ module "key_vault" {
   common_tags             = local.common_tags
 }
 
-
-#Deploy
+#Destroy

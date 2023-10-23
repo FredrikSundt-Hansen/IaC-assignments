@@ -67,7 +67,7 @@ jobs:
 
       - name: Check last commit message
         id: commit
-        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
+        run: echo "::set-output name=message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
         id: terraformAction
@@ -107,7 +107,7 @@ jobs:
       
       - name: Check last commit message
         id: commit
-        run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
+        run: echo "::set-output name=message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
         id: terraformAction

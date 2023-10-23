@@ -64,14 +64,8 @@ jobs:
             terraform destroy -auto-approve 
           else
             echo "Applying resources"
-            terraform apply ${{ env.all_vars }}
+            terraform apply ${{ env.all_vars }} -auto-approve
           fi
-
-      - name: Terraform apply
-        if: github.event.inputs.action_type == 'apply'
-        id: apply
-        working-directory: ${{ env.WORKING_DIR }}
-        run: terraform apply -auto-approve
         
       - name: Terraform destroy
         if: github.event.inputs.action_type == 'destroy'

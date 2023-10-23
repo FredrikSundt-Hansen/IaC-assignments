@@ -24,7 +24,7 @@ env:
 
       # Resource group
       rg_website_name: rg-week_39-static-website
-      rg_website_location: westeurope"
+      rg_website_location: westeurope
       # Storage account
       sa_website_name: saweb
       source_content: <h1>Web page created with Terraform </h1>

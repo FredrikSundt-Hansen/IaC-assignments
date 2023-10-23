@@ -64,7 +64,7 @@ jobs:
             terraform destroy -auto-approve 
           else
             echo "Applying resources"
-            terraform apply ${{ env.all_vars }} -auto-approve 
+            terraform apply ${{ env.all_vars }}
           fi
 
       - name: Terraform apply

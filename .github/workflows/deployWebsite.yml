@@ -1,4 +1,4 @@
-name: Assignment_1 Deploy/Destroy Azure Resources
+name: Website Deploy/Destroy 
 
 on:
   workflow_dispatch:

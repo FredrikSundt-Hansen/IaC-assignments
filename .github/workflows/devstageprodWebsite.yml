@@ -33,20 +33,22 @@ jobs:
         run: echo "::set-output name=message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
+        id: terraformAction
         working-directory: ${{ env.WORKING_DIR }}
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
-            echo "Destroying resources"
+            echo "{action}={destroy}" >> $GITHUB_OUTPUT
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
-            echo "Applying resources"
+            echo "{action}={apply}" >> $GITHUB_OUTPUT
             terraform apply -auto-approve ${{ env.ALL_VARS }}
           fi
-      
+
       - name: Test dev
         working-directory: ${{ env.WORKING_DIR }}
+        if: steps.terraformAction.outputs.action == 'apply'
         run: |
-         curl $(terraform output -raw primary_web_endpoint)
+          curl $(terraform output -raw primary_web_endpoint)
     
   stage_prod:
     needs: dev_stage
@@ -68,20 +70,22 @@ jobs:
         run: echo "::set-output name=commit_message::$(git log -1 --format=%B -n 1)"
 
       - name: Conditionally run Terraform action
+        id: terraformAction
         working-directory: ${{ env.WORKING_DIR }}
         run: |
           if [[ "${{ steps.commit.outputs.message }}" == *"destroy"* ]]; then
-            echo "Destroying resources"
+            echo "{action}={destroy}" >> $GITHUB_OUTPUT
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
-            echo "Applying resources"
+            echo "{action}={apply}" >> $GITHUB_OUTPUT
             terraform apply -auto-approve ${{ env.ALL_VARS }}
           fi
-      
-      - name: Test dev
+
+      - name: Test stage
         working-directory: ${{ env.WORKING_DIR }}
+        if: steps.terraformAction.outputs.action == 'apply'
         run: |
-         curl $(terraform output -raw primary_web_endpoint)
+          curl $(terraform output -raw primary_web_endpoint)
   
   prod:
     needs: stage_prod

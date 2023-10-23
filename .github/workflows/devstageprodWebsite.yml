@@ -1,4 +1,4 @@
-name: Dev Stage Prod
+name: Dev Stage Prod for Website
 
 on:
   push:

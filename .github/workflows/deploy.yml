@@ -1,4 +1,4 @@
-name: Deploy Assigment 1
+name: Deploy
 
 on:
   workflow_dispatch:
@@ -36,8 +36,8 @@ jobs:
 
       - name: Terraform plan
         id: plan
-        working-directory: ${{ env.WORKING_DIR }}
         run: terraform plan
+        working-directory: ${{ env.WORKING_DIR }}
 
       - name: Check last commit message
         id: commit

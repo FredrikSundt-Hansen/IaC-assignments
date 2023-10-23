@@ -2,6 +2,8 @@ name: Dev Stage Prod
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'weekly_assigmnents/week_40/website/**'
 

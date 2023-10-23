@@ -22,15 +22,15 @@ resource "azurerm_key_vault" "kv" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "Get","List","Create", "Delete", "Purge", 
+      "Get","List","Create", "Delete", "Purge", "Recover", "Update",
     ]
 
     secret_permissions = [
-      "Get","Set","List", "Delete", "Purge",
+      "Get","Set","List", "Delete", "Purge", "Recover", "Update",
     ]
 
     storage_permissions = [
-      "Get","Set","List", "Delete", "Purge",
+      "Get","Set","List", "Delete", "Purge", "Recover", "Update",
     ]
   }
 
@@ -41,7 +41,6 @@ resource "azurerm_key_vault_secret" "kvs_sa_accesskey" {
   name         = var.kvs_sa_accesskey_name
   value        = var.kvs_sa_accesskey
   key_vault_id = azurerm_key_vault.kv.id
-  depends_on = [ var.sa_name ]
 }
 
 resource "azurerm_key_vault_secret" "kvs_vm_credentials" {
@@ -51,5 +50,4 @@ resource "azurerm_key_vault_secret" "kvs_vm_credentials" {
         password = var.kvs_vm_password
     })
   key_vault_id = azurerm_key_vault.kv.id
-  depends_on = [ var.kvs_vm_username, var.kvs_vm_password ]
 }

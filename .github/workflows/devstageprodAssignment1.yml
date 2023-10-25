@@ -75,7 +75,7 @@ jobs:
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
             echo "{action}={apply}" >> $GITHUB_OUTPUT
-            terraform apply -auto-approve ${{ env.ALL_VARS }}
+            terraform apply ./main.tfplan
           fi
     
   stage_prod:
@@ -114,7 +114,7 @@ jobs:
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
             echo "{action}={apply}" >> $GITHUB_OUTPUT
-            terraform apply -auto-approve ${{ env.ALL_VARS }}
+            terraform apply ./main.tfplan
           fi
   
   prod:
@@ -155,7 +155,7 @@ jobs:
             terraform destroy -auto-approve ${{ env.ALL_VARS }}
           else
             echo "{action}={apply}" >> $GITHUB_OUTPUT
-            terraform apply -auto-approve ${{ env.ALL_VARS }}
+            terraform apply ./main.tfplan
           fi
     
 

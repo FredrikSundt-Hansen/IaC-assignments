@@ -60,7 +60,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan ${{ env.ALL_VARS }}
+        run: terraform plan ${{ env.ALL_VARS }} -out=main.tfplan
 
       - name: Terraform Format
         run: terraform fmt -check

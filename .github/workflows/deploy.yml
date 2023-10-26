@@ -25,7 +25,7 @@ env:
       ALL_VARS: 
         -var 'rg_website_name=rg-week_39-static-website' 
         -var 'rg_website_location=westeurope' 
-        -var 'sa_website_name=saweb 
+        -var 'sa_website_name=saweb'
         -var 'source_content=<h1>Web page created with Terraform </h1>' 
         -var 'company_name=week-39_company' 
         -var 'billing_code=1234567890' 

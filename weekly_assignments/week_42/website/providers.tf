@@ -15,7 +15,7 @@ terraform {
     resource_group_name  = "fredsu-rg-backend"
     storage_account_name = "sabetfsdfzp45oee3"
     container_name       = "tfstate"
-    key                  = "week-39_static-website.terraform.tfstate"
+    key                  = "week-42.terraform.tfstate"
   }
 }
 

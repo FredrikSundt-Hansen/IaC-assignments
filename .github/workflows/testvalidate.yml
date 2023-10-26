@@ -1,20 +1,11 @@
-name: Deploy AzureRM resources 
+name: Test and Validate Terraform Configuration
 
 on:
   push:
-    branches:
+    branches-ignore:
         - main
     paths:
         - 'weekly_assignments/week_42/**'
-  workflow_dispatch:
-    inputs:
-        action_type:
-            description: 'Destroy Resources'
-            required: false
-            default: 'destroy'
-            type: choice
-            options:
-                - 'destroy'
 
 env: 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -41,17 +32,13 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform init
 
-      - name: Terraform apply
-        if: github.event.inputs.action_type != 'destroy'
-        id: apply
+      - name: Terraform Format
+        run: terraform fmt -check
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform apply -auto-approve ${{ env.ALL_VARS }}
         
-      - name: Terraform destroy
-        if: github.event.inputs.action_type == 'destroy'
-        id: destroy
+      - name: Terraform Validate
+        run: terraform init -backend=false && terraform validate
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform destroy -auto-approve ${{ env.ALL_VARS }}
 
       
 

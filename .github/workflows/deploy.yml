@@ -9,11 +9,12 @@ on:
   workflow_dispatch:
     inputs:
         action_type:
-            description: 'Destroy Resources'
+            description: 'Manually Apply/Destroy Resources'
             required: false
             default: 'destroy'
             type: choice
             options:
+                - 'apply'
                 - 'destroy'
 
 env: 
@@ -41,11 +42,16 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform init
 
+      - name: Terraform plan
+        id: plan
+        working-directory: ${{ env.WORKING_DIR }}
+        run: terraform plan ${{ env.ALL_VARS }} -out=main.tfplan
+
       - name: Terraform apply
         if: github.event.inputs.action_type != 'destroy'
         id: apply
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform apply -auto-approve ${{ env.ALL_VARS }}
+        run: terraform apply "main.tfplan"
         
       - name: Terraform destroy
         if: github.event.inputs.action_type == 'destroy'

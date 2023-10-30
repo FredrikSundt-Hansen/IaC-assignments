@@ -11,7 +11,7 @@ on:
         action_type:
             description: 'Manually Apply/Destroy Resources'
             required: false
-            default: 'destroy'
+            default: 'apply'
             type: choice
             options:
                 - 'apply'

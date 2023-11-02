@@ -33,5 +33,19 @@ jobs:
         run: terraform init -backend=false && terraform validate
         working-directory: ${{ env.WORKING_DIR }}
 
+      - name: Lint Terraform Code
+        uses: "infinite-automations/tflint-all-in-one@v1.0.0"
+        with:
+          directory: "./weekly_assignments/week_42/website"
+                    
+      - name: tfsec 
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          soft_fail: false
+      
+     
+
+
+
       
 

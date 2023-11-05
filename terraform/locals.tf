@@ -9,7 +9,7 @@ locals {
 
   rg_name           = terraform.workspace == "default" ? "${var.rg_name}-${var.base_name}" : "${var.rg_name}-${var.base_name}-${local.workspace_suffix}"
   sa_name           = terraform.workspace == "default" ? "${var.sa_name}${var.base_name}${random_string.random_string.result}" : "${var.sa_name}${var.base_name}${local.workspace_suffix}${random_string.random_string.result}"
-  sc_name           = terraform.workspace == "default" ? "${var.sc_name}${var.base_name}" : "${var.sc_name}${var.base_name}${local.workspace_suffix}"
+  sc_name           = terraform.workspace == "default" ? "${var.sc_name}-${var.base_name}" : "${var.sc_name}-${var.base_name}-${local.workspace_suffix}"
   sa_accesskey_name = terraform.workspace == "default" ? "${var.sa_accesskey_name}${azurerm_storage_account.sa.name}" : "${var.sa_accesskey_name}${azurerm_storage_account.sa.name}${local.workspace_suffix}"
   vnet_name         = terraform.workspace == "default" ? var.vnet_name : "${var.vnet_name}${local.workspace_suffix}"
   nsg_name          = terraform.workspace == "default" ? var.nsg_name : "${var.nsg_name}${local.workspace_suffix}"

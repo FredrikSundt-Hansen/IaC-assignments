@@ -7,7 +7,7 @@ variable "base_name" {
 
 variable "rg_name" {
   type        = string
-  default     = "rg"
+  default     = "fredsu-rg"
   description = "Name of the resource group to create"
 }
 

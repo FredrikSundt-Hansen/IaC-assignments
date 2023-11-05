@@ -6,14 +6,14 @@ terraform {
       version = "3.75.0"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
       version = "3.5.1"
     }
   }
 
   backend "azurerm" {
     resource_group_name  = "fredsu-rg-backend"
-    storage_account_name = "sabetfsdfzp45oee3"
+    storage_account_name = "sabetfsxuhui8hvbh"
     container_name       = "tfstate"
     key                  = "assignment2.terraform.tfstate"
   }

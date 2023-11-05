@@ -29,9 +29,10 @@ resource "azurerm_key_vault" "kv" {
   }
 
   network_acls {
-         bypass = "AzureServices"
-         default_action = "Deny"
-     }
+    bypass         = "AzureServices"
+    default_action = "Deny"
+    ip_rules       = ["88.95.181.84"]
+  }
 
   tags = local.company_tags
 }
@@ -43,7 +44,9 @@ resource "azurerm_key_vault_secret" "sa_accesskey" {
   depends_on = [
     azurerm_storage_account.sa
   ]
-  tags = local.company_tags
+  content_type    = "storage account access key"
+  expiration_date = "2023-11-30T16:51:11.000Z"
+  tags            = local.company_tags
 }
 
 resource "azurerm_key_vault_secret" "vm_password" {
@@ -53,5 +56,7 @@ resource "azurerm_key_vault_secret" "vm_password" {
   depends_on = [
     random_password.password
   ]
-  tags = local.company_tags
+  content_type    = "vm password"
+  expiration_date = "2023-11-30T16:51:11.000Z"
+  tags            = local.company_tags
 }

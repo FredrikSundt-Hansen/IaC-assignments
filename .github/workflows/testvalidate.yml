@@ -5,14 +5,14 @@ on:
     branches-ignore:
         - main
     paths:
-        - 'weekly_assignments/week_42/**'
+        - 'terraform/**'
 
 env: 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./weekly_assignments/week_42/website
+      WORKING_DIR: ./terraform/
 
 jobs:
   terraform:
@@ -36,7 +36,7 @@ jobs:
       - name: tflint
         uses: "infinite-automations/tflint-all-in-one@v1.0.0"
         with:
-          directory: "./weekly_assignments/week_42/website"
+          directory: ${{ env.WORKING_DIR }}
                     
       - name: tfsec 
         uses: aquasecurity/tfsec-action@v1.0.3

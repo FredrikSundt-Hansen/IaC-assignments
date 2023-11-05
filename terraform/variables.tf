@@ -1,7 +1,7 @@
 # General variables 
 variable "base_name" {
   type        = string
-  default     = "OperraTerra AS"
+  default     = "operraterra"
   description = "value of the base name"
 }
 

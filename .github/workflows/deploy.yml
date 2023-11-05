@@ -104,7 +104,7 @@ jobs:
 
       - name: Terraform workspace select or create prod
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform workspace select stage || terraform workspace new stage
+        run: terraform workspace select prod || terraform workspace new prod
       
       - name: Terraform plan
         id: plan

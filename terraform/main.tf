@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "rg-infra" {
 }
 
 resource "random_string" "random_string" {
-  length  = 5
+  length  = 4
   special = false
   upper   = false
 }

@@ -1,4 +1,4 @@
-# Resource Group for all resources 
+# Resource Group for all resources
 resource "azurerm_resource_group" "rg-infra" {
   name     = local.rg_name
   location = var.location

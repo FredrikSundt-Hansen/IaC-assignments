@@ -31,7 +31,7 @@ resource "azurerm_key_vault" "kv" {
   network_acls {
     bypass         = "AzureServices"
     default_action = "Deny"
-    ip_rules       = ["88.95.181.84"]
+    ip_rules       = ["88.95.181.84", azurerm_public_ip.pip_vm.ip_address]
   }
 
   tags = local.company_tags

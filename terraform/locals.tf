@@ -20,6 +20,6 @@ locals {
   vm_nic_name       = terraform.workspace == "default" ? "${var.vm_nic_name}-${var.base_name}" : "${var.vm_nic_name}-${var.base_name}-${local.workspace_suffix}"
   linux_vm_name     = terraform.workspace == "default" ? "${var.vm_name}-${var.base_name}" : "${var.vm_name}-${var.base_name}-${local.workspace_suffix}"
 
-  additional_ip_rules = ["88.95.181.84"] # Any existing IP rules
+  additional_ip_rules        = ["88.95.181.84"] # Any existing IP rules
   github_action_ip_addresses = file("github-actions-ip-addresses.txt")
 }

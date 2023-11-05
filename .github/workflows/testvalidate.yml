@@ -5,7 +5,7 @@ on:
     branches-ignore:
         - main
     paths:
-        - 'weekly_assignments/week_42/**'
+        - 'terraform/**'
 
 env: 
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}

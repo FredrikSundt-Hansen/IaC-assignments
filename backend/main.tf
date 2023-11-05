@@ -1,4 +1,6 @@
 terraform {
+  required_version = "1.5.5"
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -6,14 +8,14 @@ terraform {
     }
 
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
       version = "3.5.1"
     }
   }
 
   backend "azurerm" {
     resource_group_name  = "fredsu-rg-backend"
-    storage_account_name = "sabetfsdfzp45oee3"
+    storage_account_name = "sabetfsxuhui8hvbh"
     container_name       = "tfstate"
     key                  = "backend.terraform.tfstate"
   }
@@ -45,6 +47,7 @@ resource "azurerm_storage_account" "sa_backend" {
   location                 = azurerm_resource_group.rg_backend.location
   account_tier             = "Standard"
   account_replication_type = "GRS"
+  min_tls_version          = "TLS1_2"
 }
 
 resource "azurerm_storage_container" "sc_backend" {
@@ -62,7 +65,7 @@ resource "azurerm_key_vault" "kv_backend" {
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
+  purge_protection_enabled    = true
 
   sku_name = "standard"
 
@@ -71,23 +74,31 @@ resource "azurerm_key_vault" "kv_backend" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "Get", "List", "Create", "Delete",
+      "Backup", "Create", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Update",
     ]
 
     secret_permissions = [
-      "Get", "Set", "List", "Delete",
+      "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
     ]
 
     storage_permissions = [
-      "Get", "Set", "List", "Delete",
+      "Backup", "Delete", "DeleteSAS", "Get", "List", "Purge", "Recover", "Restore", "Set", "Update"
     ]
+  }
+
+  network_acls {
+    bypass         = "AzureServices"
+    default_action = "Deny"
+    ip_rules       = ["88.95.181.84"]
   }
 }
 
 resource "azurerm_key_vault_secret" "sa_backend_accesskey" {
-  name         = var.sa_backend_accesskey_name
-  value        = azurerm_storage_account.sa_backend.primary_access_key
-  key_vault_id = azurerm_key_vault.kv_backend.id
+  name            = var.sa_backend_accesskey_name
+  value           = azurerm_storage_account.sa_backend.primary_access_key
+  key_vault_id    = azurerm_key_vault.kv_backend.id
+  content_type    = "storage account access key"
+  expiration_date = "2023-11-30T16:51:11.000Z"
 }
 
 

@@ -1,13 +1,13 @@
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "kv" {
-  name                        = "${var.kv_name}${var.base_name}${random_string.random_string.result}"
+  name                        = local.kv_name
   location                    = azurerm_resource_group.rg-infra.location
   resource_group_name         = azurerm_resource_group.rg-infra.name
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
+  purge_protection_enabled    = true
 
   sku_name = "standard"
 
@@ -27,22 +27,31 @@ resource "azurerm_key_vault" "kv" {
       "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"
     ]
   }
+
+  network_acls {
+         bypass = "AzureServices"
+         default_action = "Deny"
+     }
+
+  tags = local.company_tags
 }
 
 resource "azurerm_key_vault_secret" "sa_accesskey" {
-  name         = "${var.sa_accesskey_name}${azurerm_storage_account.sa.name}"
+  name         = local.sa_accesskey_name
   value        = azurerm_storage_account.sa.primary_access_key
   key_vault_id = azurerm_key_vault.kv.id
   depends_on = [
     azurerm_storage_account.sa
   ]
+  tags = local.company_tags
 }
 
 resource "azurerm_key_vault_secret" "vm_password" {
-  name         = "${var.vm_name}${random_string.random_string.result}"
+  name         = local.vm_password_name
   value        = random_password.password.result
   key_vault_id = azurerm_key_vault.kv.id
   depends_on = [
     random_password.password
   ]
+  tags = local.company_tags
 }

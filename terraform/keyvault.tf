@@ -28,12 +28,6 @@ resource "azurerm_key_vault" "kv" {
     ]
   }
 
-  network_acls {
-    bypass         = "AzureServices"
-    default_action = "Deny"
-    ip_rules       = ["88.95.181.84", file("github-actions-ip-addresses.txt")]
-  }
-
   tags = local.company_tags
 }
 

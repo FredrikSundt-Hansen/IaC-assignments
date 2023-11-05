@@ -19,12 +19,12 @@ resource "azurerm_network_interface" "vm_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "linux_vm" {
-  name                = local.linux_vm_name
-  resource_group_name = azurerm_resource_group.rg-infra.name
-  location            = azurerm_resource_group.rg-infra.location
-  size                = "Standard_F2"
-  admin_username      = var.vm_username
-  admin_password      = azurerm_key_vault_secret.vm_password.value
+  name                            = local.linux_vm_name
+  resource_group_name             = azurerm_resource_group.rg-infra.name
+  location                        = azurerm_resource_group.rg-infra.location
+  size                            = "Standard_F2"
+  admin_username                  = var.vm_username
+  admin_password                  = azurerm_key_vault_secret.vm_password.value
   disable_password_authentication = false
 
   network_interface_ids = [

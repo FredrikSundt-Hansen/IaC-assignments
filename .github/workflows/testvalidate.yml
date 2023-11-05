@@ -36,7 +36,7 @@ jobs:
       - name: tflint
         uses: "infinite-automations/tflint-all-in-one@v1.0.0"
         with:
-          directory: "./weekly_assignments/week_42/website"
+          directory: ${{ env.WORKING_DIR }}
                     
       - name: tfsec 
         uses: aquasecurity/tfsec-action@v1.0.3

@@ -42,7 +42,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan ${{ env.ALL_VARS }} -out=main.tfplan
+        run: terraform plan -out=main.tfplan
 
       - name: Terraform apply
         if: github.event.inputs.action_type != 'destroy'
@@ -54,7 +54,7 @@ jobs:
         if: github.event.inputs.action_type == 'destroy'
         id: destroy
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform destroy -auto-approve ${{ env.ALL_VARS }}
+        run: terraform destroy -auto-approve
   
   stage_prod:
     needs: dev_stage
@@ -74,7 +74,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan ${{ env.ALL_VARS }} -out=main.tfplan
+        run: terraform plan -out=main.tfplan
       
       - name: Terraform apply
         if: github.event.inputs.action_type != 'destroy'
@@ -86,7 +86,7 @@ jobs:
         if: github.event.inputs.action_type == 'destroy'
         id: destroy
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform destroy -auto-approve ${{ env.ALL_VARS }}
+        run: terraform destroy -auto-approve
   
   prod:
     needs: stage_prod
@@ -109,7 +109,7 @@ jobs:
       - name: Terraform plan
         id: plan
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform plan ${{ env.ALL_VARS }} -out=main.tfplan
+        run: terraform plan -out=main.tfplan
       
       - name: Terraform apply
         if: github.event.inputs.action_type != 'destroy'
@@ -121,7 +121,7 @@ jobs:
         if: github.event.inputs.action_type == 'destroy'
         id: destroy
         working-directory: ${{ env.WORKING_DIR }}
-        run: terraform destroy -auto-approve ${{ env.ALL_VARS }}
+        run: terraform destroy -auto-approve
 
       - name: Get Web Endpoint
         id: get_web_endpoint

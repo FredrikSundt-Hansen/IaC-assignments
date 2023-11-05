@@ -15,7 +15,7 @@ locals {
   nsg_name          = terraform.workspace == "default" ? var.nsg_name : "${var.nsg_name}${local.workspace_suffix}"
   subnet_name       = terraform.workspace == "default" ? var.subnet_name : "${var.subnet_name}${local.workspace_suffix}"
   vm_password_name  = terraform.workspace == "default" ? "${var.vm_name}${random_string.random_string.result}" : "${var.vm_name}${random_string.random_string.result}${local.workspace_suffix}"
-  kv_name           = terraform.workspace == "default" ? "${var.kv_name}${var.base_name}${random_string.random_string.result}" : "${var.kv_name}${var.base_name}${random_string.random_string.result}${random_string.random_string.result}"
+  kv_name           = terraform.workspace == "default" ? "${var.kv_name}-${var.base_name}-${random_string.random_string.result}" : "${var.kv_name}-${var.base_name}-${random_string.random_string.result}-${local.workspace_suffix}"
   pip_name          = terraform.workspace == "default" ? "${var.pip_name}-${var.base_name}" : "${var.pip_name}-${var.base_name}-${local.workspace_suffix}"
   vm_nic_name       = terraform.workspace == "default" ? "${var.vm_nic_name}-${var.base_name}" : "${var.vm_nic_name}-${var.base_name}-${local.workspace_suffix}"
   linux_vm_name     = terraform.workspace == "default" ? "${var.vm_name}-${var.base_name}" : "${var.vm_name}-${var.base_name}-${local.workspace_suffix}"

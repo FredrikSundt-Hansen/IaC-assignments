@@ -33,7 +33,3 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-README.md
-
-pictures/
-

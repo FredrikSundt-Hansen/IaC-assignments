@@ -93,7 +93,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: ${{ steps.get_web_endpoint.outputs.WEB_ENDPOINT }}
 
     steps:
       - uses: actions/checkout@v4
@@ -122,11 +121,6 @@ jobs:
         id: destroy
         working-directory: ${{ env.WORKING_DIR }}
         run: terraform destroy -auto-approve
-
-      - name: Get Web Endpoint
-        id: get_web_endpoint
-        run: echo "WEB_ENDPOINT=$(terraform output -raw primary_web_endpoint)" 
-        working-directory: ${{ env.WORKING_DIR }}
       
 
     
